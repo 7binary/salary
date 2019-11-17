@@ -23,7 +23,7 @@ class TaxCalculator
         $el = new ExpressionLanguage();
         /** @var Country $country */
         $country = $this->em->getRepository(Country::class)->getDefaultCountry();
-        $taxPersent = $country->getTaxPercent();
+        $taxPercent = $country->getTaxPercent();
 
         /** @var SalaryRule[] $rules */
         $rules = $this->em->getRepository(SalaryRule::class)->findTaxRules();
@@ -31,15 +31,15 @@ class TaxCalculator
         if (count($rules)) {
             foreach ($rules as $rule) {
                 if ($el->evaluate($rule->getExpression(), compact('employee'))) {
-                    $taxPersent += $rule->getPercentSigned();
+                    $taxPercent += $rule->getPercentSigned();
                 }
             }
         }
 
-        if ($taxPersent < 0) {
+        if ($taxPercent < 0) {
             return 0;
         }
 
-        return $taxPersent / 100;
+        return $taxPercent / 100;
     }
 }

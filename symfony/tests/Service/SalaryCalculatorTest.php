@@ -17,7 +17,7 @@ final class SalaryCalculatorTest extends TestCase
         $container = $this->getContainer();
         /** @var EntityManagerInterface $em */
         $em = $container->get('doctrine')->getManager();
-        /** @var SalaryCalculator $taxCalculator */
+        /** @var SalaryCalculator $salaryCalculator */
         $salaryCalculator = $container->get(SalaryCalculator::class);
 
         /** @var EmployeeRepository $repo */
